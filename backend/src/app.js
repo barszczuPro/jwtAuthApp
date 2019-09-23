@@ -18,8 +18,8 @@ app.get('/', (req, res) => {
 
 // Connect to MongoDB
 mongoose.connect(config.URI_MONGO, {
-  useCreateIndex: true,
-  useNewUrlParser: true
+  useUnifiedTopology: true,
+  useCreateIndex: true
 }).catch(err => console.log('Error: Could not connect to MongoDB.', err));
 
 mongoose.connection.on('connected', () => {

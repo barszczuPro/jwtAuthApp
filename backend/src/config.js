@@ -1,6 +1,6 @@
 module.exports = {
   //MONGO CONFIG
-  URI_MONGO: process.env.URI_MONGO || 'mongodb://admin:example@localhost:27017/authDB',
+  URI_MONGO: process.env.URI_MONGO || 'mongodb://admin:example@localhost:27017/jwtAuthDB',
   //PORT APP CONFIG
   PORT_LISTEN: process.env.PORT_LISTEN || 4200,
   //JWT CONFIG
