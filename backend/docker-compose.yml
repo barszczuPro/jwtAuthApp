@@ -1,0 +1,22 @@
+version: '3.1'
+
+services:
+  mongodb:
+    container_name: mongodb
+    image: 'bitnami/mongodb:latest'
+    ports:
+      - 27017:27017
+    environment:
+      - MONGODB_USERNAME=admin
+      - MONGODB_PASSWORD=example
+      - MONGODB_DATABASE=jwtAuthDB
+      - MONGODB_ROOT_PASSWORD=rootExample
+#  app:
+#    container_name: app
+#    restart: always
+#    build: .
+#    image: jwt-auth:1.0.0
+#    ports:
+#      - 4200:4200
+#    depends_on:
+#      - mongodb
