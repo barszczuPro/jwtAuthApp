@@ -26,7 +26,7 @@ export default new Router({
       beforeEnter: auth,
       children: [
         {
-          path: "",
+          path: "dashboard",
           name: "dashboard",
           component: Dashboard
         },

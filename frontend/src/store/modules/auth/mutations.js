@@ -1,5 +1,5 @@
-import Vue from "vue";
-import * as Auth from "../../api/auth";
+import Vue from 'vue'
+import * as Auth from '../../api/auth'
 
 export const constans = {
   SET_AUTHENTICATED: "SET_AUTHENTICATED",
@@ -11,34 +11,24 @@ export const constans = {
 
 export const mutations = {
   [constans.SET_AUTH_USER](state, tokens) {
-    let dataUser = {
-      accessToken: "",
-      refreshToken: "",
-      sub: "",
-      rol: "",
-      iat: "",
-      exp: ""
-    };
     const decodeAccessToken = Auth.decodeJWT(tokens && tokens.accessToken);
-    if (decodeAccessToken) {
-      dataUser = {
-        accessToken: tokens.accessToken,
-        refreshToken: tokens.refreshToken,
-        sub: decodeAccessToken.sub,
-        rol: decodeAccessToken.rol,
-        iat: decodeAccessToken.iat,
-        exp: decodeAccessToken.exp
-      };
-    }
-    state.authUser = dataUser;
+    state.auth = {
+      accessToken: tokens && tokens.accessToken || "",
+      refreshToken: tokens && tokens.refreshToken || "",
+      sub: decodeAccessToken && decodeAccessToken.sub || "",
+      rol: decodeAccessToken && decodeAccessToken.rol || "",
+      iat: decodeAccessToken && decodeAccessToken.iat || "",
+      exp: decodeAccessToken && decodeAccessToken.exp || ""
+    };
   },
   [constans.SET_AUTHENTICATED](state, isAuth) {
     state.isAuthorized = isAuth;
   },
   [constans.SET_ID_REPRESENTING_TOKEN_REFRESH_COUNTER](state, payload) {
-    state.remainingTokenTime = payload;
+    state.tokenRefreshCounterId = payload;
   },
   [constans.SET_USERS_LIST](state, payload) {
     Vue.set(state.account, "users", payload.users);
   }
 };
+

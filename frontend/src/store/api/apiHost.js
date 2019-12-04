@@ -1,8 +1,8 @@
-const apiHost = "http://localhost:4200";
 import * as Axios from "axios";
 import * as Auth from "./auth";
-
 import store from "../store";
+
+const apiHost = "http://localhost:4200";
 
 export const authenticationHeader = () => {
   return {

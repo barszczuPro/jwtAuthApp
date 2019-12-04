@@ -1,7 +1,7 @@
 export default {
   isAuthorized: false,
-  remainingTokenTime: null,
-  authUser: {},
+  tokenRefreshCounterId: null,
+  auth: {},
   account: {
     users: []
   }

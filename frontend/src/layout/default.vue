@@ -2,17 +2,17 @@
   v-app#inspire(dark)
     v-navigation-drawer(v-model='drawer' app clipped)
       v-list(dense)
-        v-list-item(@click='$router.push({ name: `dashboard` })')
+        v-list-item(:to="{ name: `dashboard` }")
           v-list-item-action
             v-icon dashboard
           v-list-item-content
             v-list-item-title Dashboard
-        v-list-item(@click='$router.push({ name: `account` })')
+        v-list-item(:to="{ name: `account` }")
           v-list-item-action
             v-icon account_box
           v-list-item-content
             v-list-item-title My account
-        v-list-item(@click='$router.push({ name: `users` })')
+        v-list-item(:to="{ name: `users` }")
           v-list-item-action
             v-icon people
           v-list-item-content
@@ -49,7 +49,7 @@ export default {
   methods: {
     ...mapActions("auth", ["logoutUser"]),
     logoutUserMethod() {
-      this.logoutUser();
+      this.logoutUser()
     }
   }
 };

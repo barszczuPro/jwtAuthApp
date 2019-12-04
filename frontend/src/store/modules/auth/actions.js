@@ -15,7 +15,7 @@ export const refreshToken = async ({ commit, dispatch, state }) => {
   await dispatch("clearTimeoutToken");
   const renewalTimeBuffer = 2000;
   const timeDiff = Auth.getTimeDiff(
-    state && state.authUser && state.authUser.exp
+    state && state.auth && state.auth.exp
   );
   let timeoutCount =
     renewalTimeBuffer < timeDiff ? timeDiff - renewalTimeBuffer : timeDiff;
@@ -36,22 +36,25 @@ export const authenticationUser = async ({ dispatch }, { email, password }) => {
 };
 
 export const authorize = async ({ commit, dispatch }, tokens) => {
-  await Auth.setLocalStorageTokens(tokens);
-  commit(constans.SET_AUTH_USER, tokens);
-  commit(constans.SET_AUTHENTICATED, Auth.checkTokenValidity(getAccessToken()));
-  return await dispatch("refreshToken");
+  const accessTokenValid = Auth.checkTokenValidity(tokens && tokens.accessToken)
+  commit(constans.SET_AUTHENTICATED, accessTokenValid);
+  if(accessTokenValid) {
+    commit(constans.SET_AUTH_USER, tokens);
+    await Auth.setLocalStorageTokens(tokens);
+  }
+  return dispatch("refreshToken");
 };
 
 export const clearTimeoutToken = ({ commit, state }) => {
-  clearTimeout(state.remainingTokenTime);
+  clearTimeout(state.tokenRefreshCounterId);
   commit(constans.SET_ID_REPRESENTING_TOKEN_REFRESH_COUNTER, null);
 };
 
 export const logoutUser = async ({ commit, dispatch }) => {
+  await dispatch("clearTimeoutToken");
   Auth.removeLocalStorageTokens();
   commit(constans.SET_AUTH_USER, null);
   commit(constans.SET_AUTHENTICATED, false);
-  await dispatch("clearTimeoutToken");
   router.push({ name: "login" });
 };
 
